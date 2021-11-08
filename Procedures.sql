@@ -38,3 +38,20 @@ CALL getEmpByJob('MANAGER',@counter);
 SELECT @counter AS counter;
 
 SELECT COUNT(*) FROM mydb.emp WHERE job = 'MANAGER';
+
+USE mydb;
+
+DELIMITER $$
+CREATE PROCEDURE SetCounter(INOUT counter INT,IN incre INT)
+BEGIN
+	SET counter = counter+incre;
+END $$
+DELIMITER $$
+
+-- Execute procedure
+SET @counter = 1;
+
+CALL SetCounter(@counter,1);
+CALL SetCounter(@counter,1);
+CALL SetCounter(@counter,5);
+SELECT @counter;
